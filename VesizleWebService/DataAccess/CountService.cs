@@ -33,7 +33,7 @@ namespace VesizleWebService.DataAccess
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from WatchedList", connection))
+                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from WatchList", connection))
                 {
 
                     command.Parameters.AddWithValue("@userID", userId);
@@ -50,7 +50,7 @@ namespace VesizleWebService.DataAccess
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from WatchList", connection))
+                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from WatchedList", connection))
                 {
                     var data = command.ExecuteScalar();
                     connection.Close();
