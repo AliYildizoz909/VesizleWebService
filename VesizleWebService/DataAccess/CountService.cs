@@ -17,8 +17,10 @@ namespace VesizleWebService.DataAccess
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from Favorites", connection))
+                using (SqlCommand command = new SqlCommand("Sp_FavoritesCountByUserId", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("UserId", userId);
                     var data = command.ExecuteScalar();
                     connection.Close();
                     return Convert.ToInt32(data);
@@ -33,10 +35,10 @@ namespace VesizleWebService.DataAccess
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from WatchList", connection))
+                using (SqlCommand command = new SqlCommand("Sp_WatchListCountByUserId", connection))
                 {
-
-                    command.Parameters.AddWithValue("@userID", userId);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("UserId", userId);
                     var data = command.ExecuteScalar();
                     connection.Close();
                     return Convert.ToInt32(data);
@@ -50,8 +52,10 @@ namespace VesizleWebService.DataAccess
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand($"select sum(case UserId when '{userId}' then 1 else 0 end) from WatchedList", connection))
+                using (SqlCommand command = new SqlCommand("Sp_WatchedListCountByUserId", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("UserId", userId);
                     var data = command.ExecuteScalar();
                     connection.Close();
                     return Convert.ToInt32(data);
